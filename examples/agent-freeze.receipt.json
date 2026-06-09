@@ -1,0 +1,16 @@
+{
+  "receipt_type": "trust_action_receipt",
+  "scenario_id": "agent_emergency_freeze",
+  "module": "AgentTrust Kill-State API",
+  "actor": "ops_reviewer_001",
+  "subject": "agent_demo_001",
+  "action": "freeze_agent_execution",
+  "decision": "freeze",
+  "evidence": [
+    "abnormal_action_detected",
+    "policy_threshold_exceeded",
+    "human_review_required"
+  ],
+  "issued_at": "2026-01-01T00:00:00Z",
+  "signature": "demo-signature-not-production"
+}

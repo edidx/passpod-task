@@ -1,0 +1,22 @@
+name: Validate TASK public repo
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON and public repo gate
+        run: |
+          python -m json.tool schemas/trust-action-receipt.schema.json >/dev/null
+          python -m json.tool examples/remote-worker.receipt.json >/dev/null
+          python -m json.tool examples/agent-freeze.receipt.json >/dev/null
+          python -m json.tool examples/refund-review.receipt.json >/dev/null
+          bash tools/check-public-task-repo.sh

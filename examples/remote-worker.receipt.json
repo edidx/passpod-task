@@ -1,0 +1,16 @@
+{
+  "receipt_type": "trust_action_receipt",
+  "scenario_id": "remote_worker_reference_check",
+  "module": "Remote Worker TrustPass",
+  "actor": "company_reviewer_001",
+  "subject": "worker_profile_demo_001",
+  "action": "request_work_reference_trustpass",
+  "decision": "review_required",
+  "evidence": [
+    "consent_required",
+    "reference_context_needed",
+    "company_request_detected"
+  ],
+  "issued_at": "2026-01-01T00:00:00Z",
+  "signature": "demo-signature-not-production"
+}

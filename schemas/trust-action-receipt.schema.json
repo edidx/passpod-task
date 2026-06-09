@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://passpod.io/schemas/trust-action-receipt.schema.json",
+  "title": "Passpod TASK Trust Action Receipt",
+  "type": "object",
+  "required": [
+    "receipt_type",
+    "scenario_id",
+    "actor",
+    "subject",
+    "action",
+    "decision",
+    "evidence",
+    "issued_at"
+  ],
+  "properties": {
+    "receipt_type": {
+      "const": "trust_action_receipt"
+    },
+    "scenario_id": {
+      "type": "string"
+    },
+    "module": {
+      "type": "string"
+    },
+    "actor": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "allow",
+        "deny",
+        "review_required",
+        "freeze",
+        "revoke"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature": {
+      "type": "string"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "policy_ref": {
+      "type": "string"
+    },
+    "proof_ref": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

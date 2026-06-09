@@ -1,0 +1,16 @@
+{
+  "receipt_type": "trust_action_receipt",
+  "scenario_id": "high_risk_refund_review",
+  "module": "AgentTrust Live Control API",
+  "actor": "support_agent_017",
+  "subject": "refund_case_demo_2048",
+  "action": "approve_high_risk_refund",
+  "decision": "review_required",
+  "evidence": [
+    "refund_amount_high",
+    "account_age_low",
+    "policy_review_required"
+  ],
+  "issued_at": "2026-01-01T00:00:00Z",
+  "signature": "demo-signature-not-production"
+}
