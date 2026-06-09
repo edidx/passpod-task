@@ -1,5 +1,7 @@
 # Passpod TASK Core
 
+[![Validate TASK public repo](https://github.com/edidx/passpod-task/actions/workflows/validate.yml/badge.svg)](https://github.com/edidx/passpod-task/actions/workflows/validate.yml)
+
 **Sensitive actions should not execute silently.**
 
 Passpod TASK Core is a public draft standard proposal for **Sensitive Action Control**.
