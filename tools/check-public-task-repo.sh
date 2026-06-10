@@ -2,11 +2,13 @@
 set -euo pipefail
 fail() { echo "❌ $1" >&2; exit 1; }
 
-required_files=(README.md SPEC.md PILOT_ACCESS.md ADOPTION.md SECURITY.md CONTRIBUTING.md GOVERNANCE.md VERSIONING.md requirements.txt schemas/trust-action-receipt.schema.json examples/remote-worker.receipt.json docs/public-vs-pilot.md docs/production-checklist.md docs/standardization-roadmap.md tools/validate-receipts.py)
+required_files=(README.md SPEC.md PILOT_ACCESS.md ADOPTION.md SECURITY.md CONTRIBUTING.md GOVERNANCE.md VERSIONING.md requirements.txt schemas/trust-action-receipt.schema.json examples/remote-worker.receipt.json openapi/passpod-task.public.yaml docs/public-vs-pilot.md docs/production-checklist.md docs/standardization-roadmap.md tools/validate-receipts.py)
 
 for f in "${required_files[@]}"; do
   [ -f "$f" ] || fail "Missing required file: $f"
 done
+
+find openapi -type f | grep -q . || fail "openapi/ must contain a public reference draft"
 
 grep -R "No receipt, no sensitive action" README.md SPEC.md >/dev/null || fail "Canonical doctrine missing"
 grep -R "Sensitive Action Control" README.md SPEC.md ADOPTION.md >/dev/null || fail "Sensitive Action Control category missing"
