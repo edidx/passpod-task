@@ -2,7 +2,7 @@
 set -euo pipefail
 fail() { echo "❌ $1" >&2; exit 1; }
 
-required_files=(README.md SPEC.md PILOT_ACCESS.md ADOPTION.md SECURITY.md CONTRIBUTING.md GOVERNANCE.md VERSIONING.md schemas/trust-action-receipt.schema.json examples/remote-worker.receipt.json docs/public-vs-pilot.md docs/production-checklist.md docs/standardization-roadmap.md tools/validate-receipts.py)
+required_files=(README.md SPEC.md PILOT_ACCESS.md ADOPTION.md SECURITY.md CONTRIBUTING.md GOVERNANCE.md VERSIONING.md requirements.txt schemas/trust-action-receipt.schema.json examples/remote-worker.receipt.json docs/public-vs-pilot.md docs/production-checklist.md docs/standardization-roadmap.md tools/validate-receipts.py)
 
 for f in "${required_files[@]}"; do
   [ -f "$f" ] || fail "Missing required file: $f"

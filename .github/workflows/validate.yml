@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements.txt
       - name: Validate JSON and public repo gate
         run: |
           python -m json.tool schemas/trust-action-receipt.schema.json >/dev/null
