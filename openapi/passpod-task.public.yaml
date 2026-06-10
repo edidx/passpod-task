@@ -1,0 +1,232 @@
+openapi: 3.1.0
+info:
+  title: Passpod TASK Public Reference API
+  version: 0.1.0-draft
+  summary: Public draft API shape for Passpod TASK receipt validation.
+  description: >
+    This OpenAPI file is a public reference shape for Passpod TASK Core.
+    It describes schema inspection, public demo receipt validation, and receipt
+    lookup response shape. It does not define production receipt issuance,
+    production-valid signatures, scoped key generation, Passpod Hub internals,
+    issuer internals, or hosted Pilot Access behavior.
+  contact:
+    name: Passpod Pilot Access
+    email: pilots@passpod.io
+  license:
+    name: See repository LICENSE
+servers:
+  - url: https://api.passpod.example
+    description: Placeholder reference URL; not a live production endpoint.
+tags:
+  - name: Spec
+    description: Public draft standard metadata.
+  - name: Receipts
+    description: Public demo receipt validation and lookup response shapes.
+paths:
+  /v1/spec:
+    get:
+      tags: [Spec]
+      summary: Get public TASK draft metadata.
+      description: >
+        Returns public draft metadata and points clients to the Trust Action
+        Receipt JSON Schema. This endpoint shape is informational and does not
+        create, sign, or issue receipts.
+      operationId: getTaskSpec
+      responses:
+        "200":
+          description: Public TASK draft metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicSpec"
+              examples:
+                publicDraft:
+                  value:
+                    name: Passpod TASK Core
+                    status: public_draft
+                    category: Sensitive Action Control
+                    receipt_schema: https://passpod.io/schemas/trust-action-receipt.schema.json
+                    production_issuance: false
+                    pilot_access: pilots@passpod.io
+  /v1/receipts/validate:
+    post:
+      tags: [Receipts]
+      summary: Validate a Trust Action Receipt against the public schema.
+      description: >
+        Validates a provided Trust Action Receipt against the public JSON Schema
+        and public demo safety rules. A successful response means schema-valid
+        public draft receipt only. It does not mean the receipt was issued,
+        signed, verified, or production-valid.
+      operationId: validateTrustActionReceipt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrustActionReceipt"
+      responses:
+        "200":
+          description: Validation result for a public draft receipt.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptValidationResult"
+              examples:
+                validDemoReceipt:
+                  value:
+                    valid: true
+                    production_valid: false
+                    status: schema_valid_public_demo
+                    errors: []
+                    message: Schema-valid public demo receipt; not production issuance.
+        "400":
+          description: Invalid JSON body or invalid public receipt shape.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptValidationResult"
+  /v1/receipts/{receipt_id}:
+    get:
+      tags: [Receipts]
+      summary: Get a receipt lookup response shape.
+      description: >
+        Defines the public response shape for receipt lookup. This reference
+        route does not imply that public demo receipts are hosted, production
+        receipts are publicly retrievable, or issuer authority is exposed.
+        Hosted verification belongs to Pilot Access.
+      operationId: getReceiptById
+      parameters:
+        - name: receipt_id
+          in: path
+          required: true
+          description: Public reference receipt identifier.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Receipt lookup response shape.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptLookupResult"
+        "404":
+          description: Receipt not found or not publicly available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    PublicSpec:
+      type: object
+      required: [name, status, category, receipt_schema, production_issuance, pilot_access]
+      properties:
+        name:
+          type: string
+          example: Passpod TASK Core
+        status:
+          type: string
+          enum: [public_draft]
+        category:
+          type: string
+          enum: [Sensitive Action Control]
+        receipt_schema:
+          type: string
+          format: uri
+        production_issuance:
+          type: boolean
+          const: false
+        pilot_access:
+          type: string
+          format: email
+    TrustActionReceipt:
+      type: object
+      required:
+        - receipt_type
+        - scenario_id
+        - actor
+        - subject
+        - action
+        - decision
+        - evidence
+        - issued_at
+      properties:
+        receipt_type:
+          type: string
+          const: trust_action_receipt
+        scenario_id:
+          type: string
+        module:
+          type: string
+        actor:
+          type: string
+        subject:
+          type: string
+        action:
+          type: string
+        decision:
+          type: string
+          enum: [allow, deny, review_required, freeze, revoke]
+        evidence:
+          type: array
+          items:
+            type: string
+        issued_at:
+          type: string
+          format: date-time
+        signature:
+          type: string
+          description: Public examples use demo signatures only.
+        receipt_id:
+          type: string
+          description: Optional response field; public examples must not claim production receipt IDs.
+        policy_ref:
+          type: string
+          description: Optional response field; production workflow mapping requires Pilot Access.
+        proof_ref:
+          type: string
+          description: Optional response field; hosted verification requires Pilot Access.
+      additionalProperties: true
+    ReceiptValidationResult:
+      type: object
+      required: [valid, production_valid, status, errors]
+      properties:
+        valid:
+          type: boolean
+        production_valid:
+          type: boolean
+          const: false
+        status:
+          type: string
+          enum:
+            - schema_valid_public_demo
+            - schema_invalid
+            - public_safety_rejected
+        errors:
+          type: array
+          items:
+            type: string
+        message:
+          type: string
+    ReceiptLookupResult:
+      type: object
+      required: [receipt_id, production_valid, receipt]
+      properties:
+        receipt_id:
+          type: string
+        production_valid:
+          type: boolean
+          const: false
+        receipt:
+          $ref: "#/components/schemas/TrustActionReceipt"
+        message:
+          type: string
+          example: Public reference lookup shape; production verification requires Pilot Access.
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
