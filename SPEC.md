@@ -48,7 +48,7 @@ The public v0.1 schema requires these fields:
 
 The public schema also allows optional fields:
 
-- `module`: names a public module or example context, such as Remote Worker TrustPass or AgentTrust.
+- `module`: names a public module or example context, such as AgentTrust or Remote Worker Trust.
 - `signature`: allowed in public examples only as a demo marker.
 - `receipt_id`: allowed by the schema as a response or lookup identifier, but public examples must not claim production receipt IDs.
 - `policy_ref`: conceptually points to a policy or rule set used in a real workflow. Production workflow mapping belongs to Pilot Access.
@@ -104,6 +104,7 @@ signature verification, commercial authorization, or hosted receipt lookup.
 - Passpod Protocol: governance, doctrine, and receipt-backed control principles.
 - Passpod TASK Core: public schema, examples, validator, and OpenAPI reference in this repo.
 - Passpod Hub: hosted production layer; not included in this repo.
+- Control Packs: AgentTrust and Remote Worker Trust.
 - Pilot Access Engine: scoped pilot access path; not included in this repo.
 - DIDX: steward and company source of truth for the ecosystem.
 

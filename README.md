@@ -5,6 +5,8 @@
 **Sensitive actions should not execute silently.**
 
 Passpod TASK Core is a public draft standard proposal for **Sensitive Action Control**.
+It is the public standard/test layer of the Passpod ecosystem, not the full
+Passpod Hub product.
 
 Every decision returns a **Trust Action Receipt**.
 
@@ -12,6 +14,16 @@ Every decision returns a **Trust Action Receipt**.
 
 Public demo receipts in this repository are not production-valid receipts.
 Production-valid receipts require authorized issuer access through Passpod Hub and the Pilot Access Engine.
+
+## Stack position
+
+Passpod TASK Core -> Passpod Hub -> Control Packs -> Pilot Access -> paid pilot / Team / Enterprise.
+
+- Passpod TASK Core: public schema, examples, validator, and OpenAPI reference.
+- Passpod Hub: paid hosted product layer, not included in this repo.
+- Control Packs: AgentTrust and Remote Worker Trust.
+- Pilot Access Engine: scoped pilot access path for authorized hosted access.
+- DIDX: company, legal, and registry anchor for the ecosystem.
 
 ## Start here
 
@@ -21,6 +33,7 @@ Production-valid receipts require authorized issuer access through Passpod Hub a
 - [Example receipts](examples/README.md): walkthrough for the demo receipts.
 - [Validator](validator/README.md): install and run local receipt validation.
 - [Pilot Access](PILOT_ACCESS.md): path for real workflow review and hosted pilot access.
+- [Commercial boundary](COMMERCIAL_BOUNDARY.md): what this public repo does and does not expose.
 
 ## Public test vs Pilot Access
 
