@@ -46,3 +46,13 @@ Request Pilot Access: pilots@passpod.io
 ## Public/private boundary
 
 This repo does not contain production signing keys, scoped key generation internals, buyer-specific workflows, real customer receipts, or Passpod Hub backend code.
+
+
+## Open source maintenance
+
+Passpod TASK Core is maintained as a public OSS standard layer for sensitive-action control.
+
+- [Roadmap](ROADMAP.md)
+- [Funding Use](FUNDING_USE.md)
+
+Credits or OSS support requested for this repository are intended for public maintenance only: schema checks, validator/CLI improvements, OpenAPI consistency, examples, tests, documentation, release workflows, and security hardening.
