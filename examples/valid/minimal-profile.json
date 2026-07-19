@@ -1,0 +1,10 @@
+{
+  "profileIdentity": "profile-minimal-001",
+  "profileVersion": "0.1",
+  "lifecycle": "draft",
+  "metadata": {
+    "name": "Minimal Profile Model Example",
+    "description": "A minimal profile model fixture that does not prescribe an active profile domain."
+  }
+}
+

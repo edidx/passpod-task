@@ -1,0 +1,32 @@
+{
+  "handshakeIdentity": "hs-propose-challenge-001",
+  "lifecycle": "challenged",
+  "messages": [
+    {
+      "messageIdentity": "msg-propose-001",
+      "handshakeIdentity": "hs-propose-challenge-001",
+      "messageType": "PROPOSE",
+      "sender": "participant-alpha",
+      "recipient": "participant-beta"
+    },
+    {
+      "messageIdentity": "msg-challenge-001",
+      "handshakeIdentity": "hs-propose-challenge-001",
+      "parentReference": "msg-propose-001",
+      "messageType": "CHALLENGE",
+      "sender": "participant-beta",
+      "recipient": "participant-alpha",
+      "evidenceReferences": [
+        "evidence-request-001"
+      ]
+    }
+  ],
+  "parentRelationships": [
+    {
+      "messageReference": "msg-challenge-001",
+      "parentReference": "msg-propose-001",
+      "relationshipMeaning": "responds-to"
+    }
+  ]
+}
+

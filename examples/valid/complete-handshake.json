@@ -1,0 +1,66 @@
+{
+  "handshakeIdentity": "hs-complete-001",
+  "lifecycle": "closed",
+  "terminalClosure": {
+    "isClosed": true,
+    "outcome": "completed",
+    "closeMessageReference": "msg-close-001"
+  },
+  "messages": [
+    {
+      "messageIdentity": "msg-propose-001",
+      "handshakeIdentity": "hs-complete-001",
+      "messageType": "PROPOSE",
+      "sender": "participant-alpha",
+      "recipient": "participant-beta"
+    },
+    {
+      "messageIdentity": "msg-challenge-001",
+      "handshakeIdentity": "hs-complete-001",
+      "parentReference": "msg-propose-001",
+      "messageType": "CHALLENGE",
+      "sender": "participant-beta",
+      "recipient": "participant-alpha",
+      "evidenceReferences": [
+        "evidence-request-001"
+      ]
+    },
+    {
+      "messageIdentity": "msg-agree-001",
+      "handshakeIdentity": "hs-complete-001",
+      "parentReference": "msg-challenge-001",
+      "messageType": "AGREE",
+      "sender": "participant-alpha",
+      "recipient": "participant-beta",
+      "evidenceReferences": [
+        "evidence-response-001"
+      ]
+    },
+    {
+      "messageIdentity": "msg-close-001",
+      "handshakeIdentity": "hs-complete-001",
+      "parentReference": "msg-agree-001",
+      "messageType": "CLOSE",
+      "sender": "participant-beta",
+      "recipient": "participant-alpha"
+    }
+  ],
+  "parentRelationships": [
+    {
+      "messageReference": "msg-challenge-001",
+      "parentReference": "msg-propose-001",
+      "relationshipMeaning": "responds-to"
+    },
+    {
+      "messageReference": "msg-agree-001",
+      "parentReference": "msg-challenge-001",
+      "relationshipMeaning": "resolves"
+    },
+    {
+      "messageReference": "msg-close-001",
+      "parentReference": "msg-agree-001",
+      "relationshipMeaning": "closes"
+    }
+  ]
+}
+

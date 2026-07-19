@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Passpod Message Schema",
+  "description": "Machine-readable representation of the conceptual Passpod message model. Representation details remain intentionally broad because the frozen specification keeps encoding, transport, storage, signatures, cryptography, and implementation unspecified.",
+  "type": "object",
+  "required": [
+    "messageIdentity",
+    "handshakeIdentity",
+    "messageType",
+    "sender"
+  ],
+  "properties": {
+    "messageIdentity": {
+      "$ref": "#/$defs/conceptualIdentifier",
+      "description": "Conceptual ability to distinguish one message from another."
+    },
+    "handshakeIdentity": {
+      "$ref": "#/$defs/conceptualIdentifier",
+      "description": "Conceptual ability to associate this message with a bounded handshake history."
+    },
+    "parentReference": {
+      "$ref": "#/$defs/conceptualReference",
+      "description": "Reference to earlier handshake context. The representation is intentionally unspecified."
+    },
+    "sender": {
+      "$ref": "#/$defs/participantReference",
+      "description": "Participant responsible for emitting the message."
+    },
+    "recipient": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/participantReference"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/participantReference"
+          }
+        }
+      ],
+      "description": "Participant, participants, role, or audience addressed by the message."
+    },
+    "timestamp": {
+      "$ref": "#/$defs/conceptualValue",
+      "description": "Timestamp concept for ordering, reviewability, and interpretation. Format, precision, authority, and clock source are intentionally unspecified."
+    },
+    "messageType": {
+      "type": "string",
+      "enum": [
+        "PROPOSE",
+        "CHALLENGE",
+        "AGREE",
+        "CLOSE"
+      ],
+      "description": "Canonical protocol role played by the message."
+    },
+    "profileAssociation": {
+      "$ref": "#/$defs/profileAssociation",
+      "description": "Profile context that specializes the message or handshake."
+    },
+    "versionAssociation": {
+      "$ref": "#/$defs/versionAssociation",
+      "description": "Relevant version context for the Standard, protocol, message model, profile, or extension."
+    },
+    "evidenceReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conceptualReference"
+      },
+      "description": "References to evidence used to support, question, qualify, or resolve negotiation."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Compatible extension points. Extensions must preserve the Standard, Handshake Protocol, and append-only message history.",
+      "additionalProperties": {
+        "$ref": "#/$defs/extensionValue"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "conceptualIdentifier": {
+      "description": "Identifier concept. The frozen specification does not prescribe identifier syntax.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "conceptualReference": {
+      "description": "Reference concept. The frozen specification does not prescribe representation details.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "conceptualValue": {
+      "description": "Conceptual value with intentionally unspecified representation.",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "participantReference": {
+      "description": "Participant concept. The core architecture does not require a specific identity system.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "profileAssociation": {
+      "description": "Profile association concept. The frozen specification does not prescribe encoding.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/conceptualIdentifier"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "profileIdentity": {
+              "$ref": "#/$defs/conceptualIdentifier"
+            },
+            "profileVersion": {
+              "$ref": "#/$defs/conceptualValue"
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "versionAssociation": {
+      "description": "Version association concept. The frozen specification does not prescribe version syntax.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/conceptualValue"
+          }
+        }
+      ]
+    },
+    "extensionValue": {
+      "description": "Extension value. Extensions must not redefine core semantics.",
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "null"
+      ]
+    }
+  }
+}
