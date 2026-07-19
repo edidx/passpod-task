@@ -48,6 +48,15 @@ class Message:
         object.__setattr__(self, "_data", data)
         self.validate()
 
+    def __repr__(self):
+        return (
+            "Message("
+            f"message_identity={self.message_identity!r}, "
+            f"message_type={self.message_type!r}, "
+            f"handshake_identity={self.handshake_identity!r}"
+            ")"
+        )
+
     @classmethod
     def from_mapping(cls, mapping):
         instance = cls.__new__(cls)
@@ -87,4 +96,3 @@ class Message:
         if not result.get("valid"):
             raise PasspodValidationError("validateMessage", result.get("errors", []))
         return result
-

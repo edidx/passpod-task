@@ -40,6 +40,15 @@ class Profile:
         object.__setattr__(self, "_data", data)
         self.validate()
 
+    def __repr__(self):
+        return (
+            "Profile("
+            f"profile_identity={self.profile_identity!r}, "
+            f"profile_version={self.profile_version!r}, "
+            f"lifecycle={self.lifecycle!r}"
+            ")"
+        )
+
     @classmethod
     def from_mapping(cls, mapping):
         instance = cls.__new__(cls)
@@ -67,4 +76,3 @@ class Profile:
         if not result.get("valid"):
             raise PasspodValidationError("validateProfile", result.get("errors", []))
         return result
-

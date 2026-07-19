@@ -1,5 +1,6 @@
 from copy import deepcopy
 from dataclasses import dataclass
+import json
 
 from validator.semantic_validator import validateHandshake
 
@@ -49,16 +50,34 @@ class Handshake:
                 data[key] = deepcopy(value)
 
         object.__setattr__(self, "_data", data)
+        self._set_history()
         if self._data.get("messages"):
             self.validate()
+
+    def __repr__(self):
+        return (
+            "Handshake("
+            f"handshake_identity={self.handshake_identity!r}, "
+            f"state={self.lifecycle!r}, "
+            f"message_count={self.message_count!r}"
+            ")"
+        )
 
     @classmethod
     def from_mapping(cls, mapping):
         instance = cls.__new__(cls)
         object.__setattr__(instance, "_data", deepcopy(dict(mapping)))
+        instance._set_history()
         if instance._data.get("messages"):
             instance.validate()
         return instance
+
+    def _set_history(self):
+        object.__setattr__(
+            self,
+            "_history",
+            tuple(Message.from_mapping(message) for message in self._data.get("messages", [])),
+        )
 
     @property
     def handshake_identity(self):
@@ -66,7 +85,17 @@ class Handshake:
 
     @property
     def history(self):
-        return tuple(Message.from_mapping(message) for message in self._data.get("messages", []))
+        return self._history
+
+    @property
+    def message_count(self):
+        return len(self._history)
+
+    @property
+    def last_message(self):
+        if not self._history:
+            return None
+        return self._history[-1]
 
     @property
     def lifecycle(self):
@@ -94,6 +123,13 @@ class Handshake:
         candidate["messages"].append(_message_mapping(message))
         return self.from_mapping(candidate)
 
+    def get_message(self, message_identity):
+        expected = _identity_key(message_identity)
+        for message in self._history:
+            if _identity_key(message.message_identity) == expected:
+                return message
+        return None
+
     def to_mapping(self):
         return deepcopy(self._data)
 
@@ -111,3 +147,7 @@ def _message_mapping(message):
     if isinstance(message, Message):
         return message.to_mapping()
     return deepcopy(dict(message))
+
+
+def _identity_key(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
