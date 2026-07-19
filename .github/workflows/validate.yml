@@ -1,4 +1,4 @@
-name: Validate TASK public repo
+name: Validate Passpod v0.1
 
 on:
   pull_request:
@@ -9,16 +9,34 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  validate-passpod:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install validator dependencies
-        run: python -m pip install -r requirements.txt
-      - name: Validate JSON and public repo gate
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Check canonical JSON files parse
         run: |
-          python -m json.tool schemas/trust-action-receipt.schema.json >/dev/null
-          python -m json.tool examples/remote-worker.receipt.json >/dev/null
-          python -m json.tool examples/agent-freeze.receipt.json >/dev/null
-          python -m json.tool examples/refund-review.receipt.json >/dev/null
-          bash tools/check-public-task-repo.sh
+          set -euo pipefail
+          for json_file in \
+            schemas/message.schema.json \
+            schemas/handshake.schema.json \
+            schemas/profile.schema.json \
+            examples/valid/*.json \
+            examples/invalid/*.json
+          do
+            python3 -m json.tool "$json_file" >/dev/null
+          done
+
+      - name: Run Python test suite
+        run: PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests
+
+      - name: Run Passpod v0.1 repository gate
+        run: bash tools/check-public-task-repo.sh

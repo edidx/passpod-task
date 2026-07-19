@@ -3,7 +3,7 @@ import json, sys
 from pathlib import Path
 
 if len(sys.argv) != 2:
-    print("Usage: python3 tools/pilot-readiness.py examples/remote-worker.receipt.json")
+    print("Usage: python3 archive/legacy-task/tools/pilot-readiness.py archive/legacy-task/examples/remote-worker.receipt.json")
     raise SystemExit(2)
 
 data = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))

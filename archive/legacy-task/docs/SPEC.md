@@ -26,7 +26,7 @@ were considered.
 A Trust Action Receipt is the portable output of a TASK decision.
 
 In this public v0.1 draft, a receipt is a JSON object that can be validated
-against `schemas/trust-action-receipt.schema.json`. A schema-valid public
+against `../schemas/trust-action-receipt.schema.json`. A schema-valid public
 receipt means the object follows the draft shape. It does not mean the receipt
 was issued by a production service, signed by a production issuer, stored by a
 hosted verification service, or accepted for a real workflow.

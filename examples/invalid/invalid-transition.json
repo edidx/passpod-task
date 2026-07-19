@@ -1,0 +1,30 @@
+{
+  "handshakeIdentity": "hs-invalid-transition-001",
+  "lifecycle": "agreed",
+  "messages": [
+    {
+      "messageIdentity": "msg-propose-001",
+      "handshakeIdentity": "hs-invalid-transition-001",
+      "messageType": "PROPOSE",
+      "sender": "participant-alpha"
+    },
+    {
+      "messageIdentity": "msg-agree-001",
+      "handshakeIdentity": "hs-invalid-transition-001",
+      "parentReference": "msg-propose-001",
+      "messageType": "AGREE",
+      "sender": "participant-beta",
+      "extensions": {
+        "invalidExampleReason": "AGREE appears before any CHALLENGE in the canonical negotiation flow."
+      }
+    }
+  ],
+  "parentRelationships": [
+    {
+      "messageReference": "msg-agree-001",
+      "parentReference": "msg-propose-001",
+      "relationshipMeaning": "skips-challenge"
+    }
+  ]
+}
+

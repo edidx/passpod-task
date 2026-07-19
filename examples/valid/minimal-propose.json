@@ -1,0 +1,7 @@
+{
+  "messageIdentity": "msg-propose-001",
+  "handshakeIdentity": "hs-minimal-propose-001",
+  "messageType": "PROPOSE",
+  "sender": "participant-alpha"
+}
+

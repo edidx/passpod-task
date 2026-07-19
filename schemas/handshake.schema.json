@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Passpod Handshake Schema",
+  "description": "Machine-readable representation of the conceptual Passpod handshake model. The schema represents the canonical flow without embedding implementation transition logic.",
+  "type": "object",
+  "required": [
+    "handshakeIdentity",
+    "messages"
+  ],
+  "properties": {
+    "handshakeIdentity": {
+      "$ref": "#/$defs/conceptualIdentifier",
+      "description": "Stable conceptual identifier that lets participants recognize which messages belong to the same negotiation."
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/handshakeLifecycle",
+      "description": "Conceptual lifecycle state of the handshake."
+    },
+    "terminalClosure": {
+      "$ref": "#/$defs/terminalClosure",
+      "description": "Closure concept for terminal handshake outcome. Closure is terminal, but this schema does not implement transition logic."
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "message.schema.json"
+      },
+      "description": "Ordered append-only message history. Ordering is represented by array order; append-only behavior is a semantic requirement outside this schema."
+    },
+    "parentRelationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/parentRelationship"
+      },
+      "description": "Conceptual parent relationships among messages in the handshake."
+    },
+    "profileAssociation": {
+      "$ref": "#/$defs/conceptualReference",
+      "description": "Optional profile context associated with the handshake."
+    },
+    "versionAssociation": {
+      "$ref": "#/$defs/conceptualValue",
+      "description": "Optional version context. The frozen specification does not prescribe version syntax."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Compatible extension points. Extensions must not redefine core semantics.",
+      "additionalProperties": {
+        "$ref": "#/$defs/extensionValue"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "conceptualIdentifier": {
+      "description": "Identifier concept. The frozen specification does not prescribe identifier syntax.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "conceptualReference": {
+      "description": "Reference concept. The frozen specification does not prescribe representation details.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "conceptualValue": {
+      "description": "Conceptual value with intentionally unspecified representation.",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "handshakeLifecycle": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "proposed",
+        "challenged",
+        "agreed",
+        "closed"
+      ],
+      "description": "Conceptual lifecycle state from the State Model."
+    },
+    "terminalClosure": {
+      "type": "object",
+      "required": [
+        "isClosed"
+      ],
+      "properties": {
+        "isClosed": {
+          "type": "boolean",
+          "description": "Whether the handshake has reached closure."
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "unresolved",
+            "withdrawn",
+            "declined"
+          ],
+          "description": "Conceptual terminal outcome named in the State Model. Profiles may define more specific terminal meanings."
+        },
+        "closeMessageReference": {
+          "$ref": "#/$defs/conceptualReference",
+          "description": "Reference to the CLOSE message or closure context."
+        }
+      },
+      "additionalProperties": false
+    },
+    "parentRelationship": {
+      "type": "object",
+      "required": [
+        "messageReference",
+        "parentReference"
+      ],
+      "properties": {
+        "messageReference": {
+          "$ref": "#/$defs/conceptualReference",
+          "description": "Reference to the message that has a parent."
+        },
+        "parentReference": {
+          "$ref": "#/$defs/conceptualReference",
+          "description": "Reference to earlier handshake context."
+        },
+        "relationshipMeaning": {
+          "type": "string",
+          "description": "Optional conceptual meaning of the relationship. The frozen specification does not prescribe controlled values."
+        }
+      },
+      "additionalProperties": false
+    },
+    "extensionValue": {
+      "description": "Extension value. Extensions must not redefine core semantics.",
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "null"
+      ]
+    }
+  }
+}

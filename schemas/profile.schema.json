@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Passpod Profile Schema",
+  "description": "Machine-readable representation of the conceptual Passpod Profile model. This schema represents the Profile model only; it does not define actual profiles.",
+  "type": "object",
+  "required": [
+    "profileIdentity",
+    "profileVersion",
+    "lifecycle"
+  ],
+  "properties": {
+    "profileIdentity": {
+      "$ref": "#/$defs/conceptualIdentifier",
+      "description": "Conceptual identity of the profile."
+    },
+    "profileVersion": {
+      "$ref": "#/$defs/conceptualValue",
+      "description": "Profile version concept. Version syntax is intentionally unspecified."
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/profileLifecycle",
+      "description": "Conceptual governance lifecycle stage, not an implementation state."
+    },
+    "metadata": {
+      "$ref": "#/$defs/profileMetadata",
+      "description": "Profile metadata that does not create an actual profile domain by itself."
+    },
+    "mayDefine": {
+      "type": "object",
+      "description": "Conceptual areas a profile may define while preserving the Standard and Protocol.",
+      "properties": {
+        "participantRoles": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "evidenceExpectations": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "terminology": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "domainSpecificExtensions": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "versionExpectations": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "workflowGuidance": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "terminalOutcomeInterpretation": {
+          "$ref": "#/$defs/conceptualValue"
+        },
+        "optionalConstraints": {
+          "$ref": "#/$defs/conceptualValue"
+        }
+      },
+      "additionalProperties": false
+    },
+    "mustNotRedefine": {
+      "type": "array",
+      "readOnly": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "PROPOSE",
+          "CHALLENGE",
+          "AGREE",
+          "CLOSE",
+          "append-only history",
+          "immutable accepted messages",
+          "Standard semantics",
+          "Protocol semantics"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Core semantics that profiles must not redefine."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Compatible profile extensions. Extensions must preserve semantic compatibility.",
+      "additionalProperties": {
+        "$ref": "#/$defs/extensionValue"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "conceptualIdentifier": {
+      "description": "Identifier concept. The frozen specification does not prescribe identifier syntax.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "conceptualValue": {
+      "description": "Conceptual value with intentionally unspecified representation.",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "profileLifecycle": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "deprecated",
+        "archived"
+      ],
+      "description": "Conceptual profile lifecycle stage."
+    },
+    "profileMetadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Profile name metadata."
+        },
+        "description": {
+          "type": "string",
+          "description": "Profile description metadata."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Domain metadata. This does not prescribe any active profile."
+        },
+        "normativeReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "References to normative Passpod documents or profile materials."
+        },
+        "informativeReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "References to informative materials."
+        }
+      },
+      "additionalProperties": false
+    },
+    "extensionValue": {
+      "description": "Extension value. Extensions must preserve semantic compatibility.",
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "null"
+      ]
+    }
+  }
+}

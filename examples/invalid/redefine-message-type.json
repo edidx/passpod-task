@@ -1,0 +1,23 @@
+{
+  "profileIdentity": "profile-invalid-redefine-message-type-001",
+  "profileVersion": "0.1",
+  "lifecycle": "draft",
+  "metadata": {
+    "name": "Invalid Message Type Redefinition",
+    "description": "A profile model fixture that attempts to redefine canonical message semantics."
+  },
+  "mayDefine": {
+    "terminology": {
+      "PROPOSE": "This invalid profile attempts to make PROPOSE close a handshake."
+    },
+    "domainSpecificExtensions": {
+      "messageTypeRedefinitions": {
+        "PROPOSE": "close"
+      }
+    }
+  },
+  "extensions": {
+    "invalidExampleReason": "Profiles may extend usage but must not redefine PROPOSE, CHALLENGE, AGREE, or CLOSE."
+  }
+}
+

@@ -1,43 +1,46 @@
-# Validator
+# Passpod Semantic Validator
 
-The public validator checks the example Trust Action Receipts against the
-public JSON Schema and the demo-only safety boundary.
+The semantic validator evaluates current Passpod artifacts against the frozen
+v0.1 specification. It is an evaluator, not the source of protocol semantics.
 
-It validates that:
+## Validation Layers
 
-- each `examples/*.receipt.json` file is JSON;
-- each example matches `schemas/trust-action-receipt.schema.json`;
-- public examples keep `demo-signature-not-production`;
-- public examples do not claim production receipt IDs, policy references, or
-  proof references.
+The validator performs:
 
-## Install
+- structural schema validation;
+- bounded semantic validation;
+- deterministic error-code reporting.
 
-From the repository root:
+Semantic checks include message ordering, parent references, duplicate message
+identity, terminal closure, and Profile non-redefinition of the core protocol.
 
-```bash
-python3 -m pip install -r requirements.txt
-```
+## Public Operations
 
-## Run
+The public validator operations are:
 
-```bash
-python3 tools/validate-receipts.py
-```
+- `validateMessage`
+- `validateHandshake`
+- `validateProfile`
 
-Expected output includes:
+They are implemented in [semantic_validator.py](semantic_validator.py).
 
-```text
-schema-valid public demo receipt
-```
+## Fixtures
+
+Canonical fixtures live under:
+
+- [../examples/valid/](../examples/valid/)
+- [../examples/invalid/](../examples/invalid/)
+
+Valid fixtures must pass. Invalid fixtures are intentionally shaped as JSON
+artifacts that fail bounded structural or semantic checks.
 
 ## Boundary
 
-A passing validator result means the receipt is a valid public demo example. It
-does not mean the receipt was issued, signed, stored, or verified by a
-production service.
+The Standard and Handshake Protocol remain authoritative. The validator
+consumes the active semantics and reports evaluation results; it does not
+define JSON beyond the canonical schemas, transport behavior, SDK classes,
+storage, signatures, cryptography, identity, authorization, or certification.
 
-Production-valid receipts require authorized issuer access through Passpod Hub
-and the Pilot Access Engine. This repository does not contain production
-signing internals, scoped key generation, issuer logic, customer workflows, or
-Passpod Hub internals.
+Historical receipt validation tooling is archived at
+[../archive/legacy-task/tools/validate-receipts.py](../archive/legacy-task/tools/validate-receipts.py).
+It is not current Passpod validation guidance.

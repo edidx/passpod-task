@@ -1,6 +1,6 @@
 # OpenAPI Reference
 
-`openapi/passpod-task.public.yaml` is a public reference shape for Passpod TASK
+`passpod-task.public.yaml` is a public reference shape for Passpod TASK
 Core. It documents draft endpoints for spec discovery, public demo receipt
 validation, and receipt lookup response shape.
 

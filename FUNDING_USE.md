@@ -1,53 +1,51 @@
-# Funding Use: Codex Open Source Fund
+# Potential Use Of Future Funding
 
-Passpod TASK Core is a public open-source standard layer for sensitive-action control: **no receipt, no sensitive action**.
+This document describes possible repository-development priorities if future funding, credits, or support become available.
 
-This repository provides schemas, examples, validator/CLI tooling, OpenAPI references, and documentation for Trust Action Receipts and decision states such as `allow`, `deny`, `review_required`, `freeze`, and `revoke`.
+It does not claim that funding exists, is being raised, has been awarded, or will be used in a guaranteed way. It does not define a budget, allocation, hiring plan, investor return, revenue forecast, or market-share claim.
 
-## Why API credits matter
+## Purpose
 
-Passpod TASK Core is security-sensitive OSS. Developers may copy its schemas, examples, and validation patterns when building AI-agent, automation, approval, or sensitive-action workflows. Weak examples or inconsistent validation could spread unsafe patterns.
+Future funding could support maintenance and evaluation of Passpod as a transport-neutral specification repository with a reference Python SDK.
 
-API credits would help maintain and harden the public OSS layer as a solo maintainer.
+Funding decisions remain subject to actual funding arrangements and project governance. Authority for funding decisions is not assigned by this document.
 
-## Planned use of API credits
+## Possible Priorities
 
-Credits would be used for public repository maintenance only:
+Possible future funding priorities may include:
 
-- Codex-assisted schema validation checks
-- Validator and CLI test generation
-- OpenAPI consistency checks
-- Example receipt generation and review
-- Regression tests for valid and invalid receipts
-- Detection of unsafe or ambiguous examples
-- Documentation drift checks
-- Release note and changelog drafting
-- Issue and pull request triage automation
-- Security review of receipt, state, and revocation flows
+- specification maintenance;
+- conformance tooling;
+- fixtures and testing;
+- reference SDK quality;
+- Profile research;
+- security review;
+- documentation;
+- interoperability experiments;
+- pilot evaluation;
+- optional transport-binding research.
 
-## Not for private commercial use
+These are possible allocations, not promises.
 
-Credits requested for this repository would not be used for private customer operations, private pilot data, commercial backend execution, or production key issuance.
+## Excluded Assumptions
 
-Commercial and private systems remain separate from this public OSS standard layer.
+This document does not allocate funding to:
 
-## 30 / 60 / 90 day plan
+- production hosted infrastructure;
+- sales teams;
+- guaranteed hiring;
+- guaranteed certifications;
+- cryptographic systems not designed by the active architecture;
+- live Hub development;
+- Pilot Access Engine development;
+- receipt infrastructure;
+- specific fundraising totals;
+- investor returns;
+- revenue forecasts;
+- market-share claims.
 
-### First 30 days
+## Governance Boundary
 
-- Harden validator examples
-- Add invalid and replay-risk test cases
-- Improve README quickstart
-- Add clear public/private boundary notes
+Funding priorities must not redefine the Standard, Handshake Protocol, Profiles, conformance, schemas, SDK, CLI, or validator behavior.
 
-### First 60 days
-
-- Expand receipt gallery
-- Add OpenAPI/schema drift checks
-- Add issue templates for schema, security, docs, and validator feedback
-
-### First 90 days
-
-- Add maintainer automation for pull request review
-- Publish release workflow notes
-- Improve standards crosswalk notes for OWASP, NIST, OpenID, W3C DID/VC, EUDI, MCP, and FIDO
+Any future funded work must preserve the distinction between normative architecture, reference implementation, Passpod Pilot, and archive material.
