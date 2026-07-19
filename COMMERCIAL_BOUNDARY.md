@@ -1,38 +1,60 @@
 # Commercial Boundary
 
-This repository is public proof for Passpod TASK Core.
+This document separates the open Passpod specification and reference implementation from possible future commercial activity.
 
-It helps developers and reviewers inspect the public standard/test layer:
+It does not define current pricing, service plans, hosted availability, commercial commitments, customers, revenue, partners, or deployment status.
 
-- Trust Action Receipt schema;
-- public demo receipts;
-- local validator;
-- public OpenAPI reference shape;
-- basic doctrine for Sensitive Action Control.
+## Open Repository Boundary
 
-## Product stack
+This repository currently contains:
 
-Passpod TASK Core -> Passpod Hub -> Control Packs -> Pilot Access -> paid pilot / Team / Enterprise.
+- normative specification documents;
+- canonical schemas;
+- valid and invalid fixtures;
+- semantic validator;
+- reference Python SDK;
+- CLI;
+- tests;
+- governance and developer documentation;
+- migration archive material.
 
-- Passpod TASK Core is the public standard/test layer in this repo.
-- Passpod Hub is the paid hosted product layer and is not included here.
-- Control Packs are AgentTrust and Remote Worker Trust.
-- Pilot Access Engine is the scoped access path for authorized hosted access.
-- DIDX is the company, legal, and registry anchor.
+The repository's rights and conditions are defined by [LICENSE](LICENSE). This document does not add license grants or restrictions.
 
-## Not in this repo
+The open repository is sufficient to read the current specification, run the reference implementation, inspect fixtures, and evaluate the canonical handshake model locally.
 
-This repo does not expose:
+## Possible Future Commercial Activity
 
-- production issuer logic;
-- production signing internals;
-- scoped key generation;
-- Passpod Hub internals;
-- customer workflows;
-- private commercial strategy;
-- Sentinel/Ops internals;
-- exit roadmap.
+Possible future commercial services could include:
 
-Public demo receipts are not production-valid receipts. Production-valid
-receipts require authorized issuer access through Passpod Hub and the Pilot
-Access Engine.
+- implementation assistance;
+- integration support;
+- Profile design assistance;
+- pilot facilitation;
+- hosted transport bindings;
+- managed validation;
+- operational support;
+- enterprise support.
+
+These are possibilities, not current offerings. This document does not state prices, plans, availability, service levels, launch dates, or acceptance criteria.
+
+## Separation From The Standard
+
+Commercial services must not silently redefine:
+
+- the Passpod Standard;
+- the Handshake Protocol;
+- message semantics;
+- conformance;
+- Profile rules.
+
+A hosted or commercial implementation is not automatically normative. Paid access is not required for understanding or implementing the open specification.
+
+## Current Commercial Status
+
+This repository does not define current pricing, service plans, hosted availability, or commercial commitments.
+
+It does not claim production deployment, production readiness, active customers, revenue, funding, negotiations, partnerships, grants, investors, or enterprise support.
+
+## Archived Model
+
+Archived TASK-era materials described Hub, Pilot Access Engine, scoped-key, and receipt-service concepts. Those concepts are retained for provenance in archive material only and are not part of the current Passpod v0.1 architecture.
