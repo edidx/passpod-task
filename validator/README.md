@@ -1,12 +1,12 @@
-# Validator
+# Legacy Receipt Validator
 
-The public validator checks the example Trust Action Receipts against the
-public JSON Schema and the demo-only safety boundary.
+The legacy receipt validator checks archived Trust Action Receipt examples
+against the public JSON Schema and the demo-only safety boundary.
 
 It validates that:
 
-- each `examples/*.receipt.json` file is JSON;
-- each example matches `schemas/trust-action-receipt.schema.json`;
+- each `archive/legacy-task/examples/*.receipt.json` file is JSON;
+- each example matches `archive/legacy-task/schemas/trust-action-receipt.schema.json`;
 - public examples keep `demo-signature-not-production`;
 - public examples do not claim production receipt IDs, policy references, or
   proof references.

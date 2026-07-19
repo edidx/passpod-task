@@ -175,7 +175,7 @@ These terms are outside the active Passpod v0.1 architecture. They are preserved
 Historical migration references:
 
 - [Legacy specification](SPEC.md)
-- [Legacy receipt schema](schemas/trust-action-receipt.schema.json)
+- [Legacy receipt schema](archive/legacy-task/schemas/trust-action-receipt.schema.json)
 - [Legacy OpenAPI reference](openapi/passpod-task.public.yaml)
 - [Legacy examples guide](examples/README.md)
 - [Legacy validator guide](validator/README.md)

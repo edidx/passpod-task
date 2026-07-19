@@ -1,10 +1,12 @@
-# Example Receipts
+# Archived Receipt Examples
 
-This directory contains public demo Trust Action Receipts for Passpod TASK Core.
-They are intentionally sanitized examples for learning, schema validation, and
-tooling tests.
+The Trust Action Receipt examples described here are archived under
+[`../archive/legacy-task/examples/`](../archive/legacy-task/examples/). They are
+superseded TASK-era material retained for history, migration analysis, and
+provenance.
 
-These receipts are valid public examples, not production-valid receipts. They
+These receipts are legacy public examples, not canonical Passpod v0.1 fixtures
+and not production-valid receipts. They
 use `demo-signature-not-production` and do not include production receipt IDs,
 policy references, proof references, customer workflows, issuer internals, or
 scoped key logic.
@@ -12,7 +14,7 @@ scoped key logic.
 Production-valid receipts require authorized issuer access through Passpod Hub
 and the Pilot Access Engine.
 
-## remote-worker.receipt.json
+## [remote-worker.receipt.json](../archive/legacy-task/examples/remote-worker.receipt.json)
 
 Demonstrates a Remote Worker TrustPass-style reference check.
 
@@ -22,7 +24,7 @@ Demonstrates a Remote Worker TrustPass-style reference check.
 - Why it matters: work-reference requests should collect consent and context
   before a trust decision is made.
 
-## refund-review.receipt.json
+## [refund-review.receipt.json](../archive/legacy-task/examples/refund-review.receipt.json)
 
 Demonstrates a high-risk refund approval that needs review before execution.
 
@@ -31,7 +33,7 @@ Demonstrates a high-risk refund approval that needs review before execution.
 - `decision`: `review_required`
 - Why it matters: large or risky refund actions should not execute silently.
 
-## agent-freeze.receipt.json
+## [agent-freeze.receipt.json](../archive/legacy-task/examples/agent-freeze.receipt.json)
 
 Demonstrates a freeze decision for abnormal agent behavior.
 

@@ -8,8 +8,8 @@ except ImportError as exc:
     raise SystemExit("Missing dependency. Run: python3 -m pip install -r requirements.txt") from exc
 
 
-SCHEMA_PATH = Path("schemas/trust-action-receipt.schema.json")
-EXAMPLES_DIR = Path("examples")
+SCHEMA_PATH = Path("archive/legacy-task/schemas/trust-action-receipt.schema.json")
+EXAMPLES_DIR = Path("archive/legacy-task/examples")
 DEMO_SIGNATURE = "demo-signature-not-production"
 FORBIDDEN_PUBLIC_MARKERS = (
     "BEGIN " + "PRIVATE KEY",
@@ -59,7 +59,7 @@ def main():
     ok = True
 
     if not paths:
-        print("❌ examples: no *.receipt.json files found")
+        print(f"❌ {EXAMPLES_DIR}: no *.receipt.json files found")
         return 1
 
     for path in paths:

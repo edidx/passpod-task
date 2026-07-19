@@ -1,5 +1,7 @@
 # Canonical Repository Migration Map
 
+Post-archival note: receipt-era schema and example paths quoted in this migration map describe repository state and dependencies observed when the map was written. The legacy receipt family now lives under `archive/legacy-task/`; any former active paths retained below are historical dependency evidence, not active Passpod v0.1 requirements.
+
 ## 1. Executive Summary
 
 This audit reviewed every tracked repository asset after the Passpod v0.1 reset.

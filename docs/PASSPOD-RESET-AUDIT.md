@@ -6,6 +6,8 @@ Branch observed: `main`
 Remote observed: `https://github.com/edidx/passpod-task.git`
 Audit mode: read-only audit plus this single new report file
 
+Post-archival note: legacy receipt schema and receipt example paths referenced by their former active locations in this historical audit have since been moved to `archive/legacy-task/`. Those former paths remain in this report as observations of repository state at audit time, not active Passpod v0.1 requirements.
+
 ## 1. Executive summary
 
 The current repository is implemented as a public "Passpod TASK Core" standard/test repository. It is not yet aligned with the reset architecture:
@@ -386,4 +388,3 @@ Observed validation output:
 - Whether `Remote Worker` should become a canonical Reference Profile or be archived is not inferable from this repo alone.
 - Whether external clients use `openapi/passpod-task.public.yaml` is not inferable from local imports.
 - Empty local directories `packages/validator/`, `spec/`, and `src/` are not tracked by git; their intended purpose is unknown.
-
