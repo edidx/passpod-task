@@ -6,7 +6,7 @@ Branch observed: `main`
 Remote observed: `https://github.com/edidx/passpod-task.git`
 Audit mode: read-only audit plus this single new report file
 
-Post-archival note: legacy receipt schema, receipt example, OpenAPI, and worker-reference paths referenced by their former active locations in this historical audit have since been moved to `archive/legacy-task/`. Those former paths remain in this report as observations of repository state at audit time, not active Passpod v0.1 requirements.
+Post-archival note: legacy receipt schema, receipt example, OpenAPI, worker-reference, specification, launch-readiness, and roadmap paths referenced by their former active locations in this historical audit have since been moved to `archive/legacy-task/`. Those former paths remain in this report as observations of repository state at audit time, not active Passpod v0.1 requirements.
 
 ## 1. Executive summary
 

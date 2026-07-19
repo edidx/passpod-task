@@ -1,5 +1,7 @@
 # Root Package Surface Migration Audit
 
+Post-archival note: the legacy `SPEC.md`, `LAUNCH_READINESS.md`, and `ROADMAP.md` files evaluated in this audit have since been moved to `archive/legacy-task/docs/`. Original root paths retained below describe audited pre-archival locations and dependencies, not active Passpod v0.1 authority.
+
 ## 1. Executive Summary
 
 This audit reviewed the remaining root-level documents, package surfaces, tooling surfaces, release metadata, governance files, and supporting repository files after the Passpod v0.1 reset and the legacy receipt/OpenAPI archives.

@@ -1,6 +1,6 @@
 # Canonical Repository Migration Map
 
-Post-archival note: receipt-era schema, receipt example, OpenAPI, and worker-reference paths quoted in this migration map describe repository state and dependencies observed when the map was written. The legacy receipt and transport families now live under `archive/legacy-task/`; any former active paths retained below are historical dependency evidence, not active Passpod v0.1 requirements.
+Post-archival note: receipt-era schema, receipt example, OpenAPI, worker-reference, legacy specification, launch-readiness, and roadmap paths quoted in this migration map describe repository state and dependencies observed when the map was written. The legacy receipt, transport, and document families now live under `archive/legacy-task/`; any former active paths retained below are historical dependency evidence, not active Passpod v0.1 requirements.
 
 ## 1. Executive Summary
 
