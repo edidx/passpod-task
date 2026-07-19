@@ -176,7 +176,7 @@ Historical migration references:
 
 - [Legacy specification](SPEC.md)
 - [Legacy receipt schema](archive/legacy-task/schemas/trust-action-receipt.schema.json)
-- [Legacy OpenAPI reference](openapi/passpod-task.public.yaml)
+- [Legacy OpenAPI reference](archive/legacy-task/openapi/passpod-task.public.yaml)
 - [Legacy examples guide](examples/README.md)
 - [Legacy validator guide](validator/README.md)
 - [Legacy pilot access notes](PILOT_ACCESS.md)

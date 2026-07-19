@@ -1,5 +1,7 @@
 # OpenAPI Transport Material Decision
 
+Post-archival note: the OpenAPI and worker-reference assets evaluated in this decision have since been moved to `archive/legacy-task/openapi/` and `archive/legacy-task/worker-reference/`. Original paths retained below describe the audited pre-archival locations and are not active Passpod v0.1 paths.
+
 ## 1. Executive Summary
 
 This audit reviewed the remaining OpenAPI, worker-reference, API documentation, and transport-oriented material after the Passpod v0.1 specification, schemas, fixtures, validator, SDK, CLI, README, quickstart, gate, CI, and legacy receipt archive were completed.
