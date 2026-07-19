@@ -1,63 +1,53 @@
-# Archived Receipt Examples
+# Passpod Examples
 
-The Trust Action Receipt examples described here are archived under
-[`../archive/legacy-task/examples/`](../archive/legacy-task/examples/). They are
-superseded TASK-era material retained for history, migration analysis, and
-provenance.
+These examples are canonical Passpod v0.1 fixtures for local validation, SDK
+round trips, CLI behavior, and conformance discussion.
 
-These receipts are legacy public examples, not canonical Passpod v0.1 fixtures
-and not production-valid receipts. They
-use `demo-signature-not-production` and do not include production receipt IDs,
-policy references, proof references, customer workflows, issuer internals, or
-scoped key logic.
+## Valid Fixtures
 
-Production-valid receipts require authorized issuer access through Passpod Hub
-and the Pilot Access Engine.
+[valid/](valid/) contains artifacts expected to pass schema and semantic
+validation:
 
-## [remote-worker.receipt.json](../archive/legacy-task/examples/remote-worker.receipt.json)
+- `minimal-propose.json`: a minimal `PROPOSE` message.
+- `propose-challenge.json`: a handshake through `CHALLENGE`.
+- `propose-challenge-agree.json`: a handshake through `AGREE`.
+- `complete-handshake.json`: a closed `PROPOSE -> CHALLENGE -> AGREE -> CLOSE`
+  handshake.
+- `minimal-profile.json`: a minimal Profile model artifact.
 
-Demonstrates a Remote Worker TrustPass-style reference check.
+## Invalid Fixtures
 
-- `scenario_id`: `remote_worker_reference_check`
-- `action`: `request_work_reference_trustpass`
-- `decision`: `review_required`
-- Why it matters: work-reference requests should collect consent and context
-  before a trust decision is made.
+[invalid/](invalid/) contains JSON-shaped artifacts expected to fail validation:
 
-## [refund-review.receipt.json](../archive/legacy-task/examples/refund-review.receipt.json)
+- `missing-parent.json`
+- `invalid-transition.json`
+- `close-before-agree.json`
+- `duplicate-message-id.json`
+- `redefine-message-type.json`
 
-Demonstrates a high-risk refund approval that needs review before execution.
+These fixtures are useful for deterministic error-code behavior and negative
+conformance checks.
 
-- `scenario_id`: `high_risk_refund_review`
-- `action`: `approve_high_risk_refund`
-- `decision`: `review_required`
-- Why it matters: large or risky refund actions should not execute silently.
+## Usage
 
-## [agent-freeze.receipt.json](../archive/legacy-task/examples/agent-freeze.receipt.json)
-
-Demonstrates a freeze decision for abnormal agent behavior.
-
-- `scenario_id`: `agent_emergency_freeze`
-- `action`: `freeze_agent_execution`
-- `decision`: `freeze`
-- Why it matters: unsafe or abnormal agent actions may need immediate pause
-  before further execution.
-
-## Validate examples
-
-From the repository root:
+Validate a fixture from the repository root:
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 tools/validate-receipts.py
+python3 -m passpod.cli validate examples/valid/complete-handshake.json
 ```
 
-Expected result:
+Inspect a fixture from the repository root:
 
-```text
-schema-valid public demo receipt
+```bash
+python3 -m passpod.cli inspect examples/valid/complete-handshake.json
 ```
 
-That means the JSON matches the public draft schema and keeps the public demo
-safety boundary. It does not mean hosted issuance, production signature
-verification, or commercial authorization.
+SDK fixture round-trip coverage is exercised in
+[../tests/test_sdk_fixture_roundtrip.py](../tests/test_sdk_fixture_roundtrip.py).
+
+## Historical Material
+
+Archived receipt examples are retained at
+[../archive/legacy-task/examples/](../archive/legacy-task/examples/) for
+history, migration analysis, and provenance. They are not current Passpod v0.1
+fixtures.

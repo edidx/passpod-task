@@ -1,21 +1,30 @@
 # Glossary
 
-Sensitive Action Control: checking and recording risky actions before execution.
+This glossary is an informative navigation aid. Normative definitions live in
+[TERMINOLOGY.md](TERMINOLOGY.md).
 
-Trust Action Receipt: portable output of a TASK decision.
+## Active Terms
 
-Passpod TASK Core: public standard/test layer for schemas, examples, validation, and reference API shape.
+- Passpod: the overall architecture defined by the active specification.
+- Passpod Standard: the semantic authority for Passpod.
+- Handshake Protocol: the transport-neutral negotiation protocol.
+- handshake: one append-only negotiation history.
+- message: an immutable accepted protocol statement within a handshake.
+- participant: an actor represented in a handshake.
+- Profile: a domain-specific specialization of Passpod.
+- evidence: information referenced during negotiation.
+- reference: a conceptual pointer to another message, evidence item, or resource.
+- extension: a compatible specialization point.
+- conformance: alignment with the active Passpod semantics.
+- Passpod SDK: the reference Python implementation surface in this repository.
+- Passpod Pilot: the controlled evaluation path for workflow fit and feedback.
+- PROPOSE: the initial proposal message type.
+- CHALLENGE: a request for clarification, evidence, or negotiation.
+- AGREE: acceptance of negotiated terms.
+- CLOSE: terminal closure of a handshake.
 
-Passpod Protocol: governance and doctrine for receipt-backed control of sensitive actions.
+## Legacy Terms
 
-Passpod Hub: paid hosted product layer. Hub internals are not included in this public repo.
-
-Control Packs: focused product workflows powered by Passpod Hub. The canonical public Control Packs are AgentTrust and Remote Worker Trust.
-
-AgentTrust: Control Pack for agent and automated-action control scenarios.
-
-Remote Worker Trust: Control Pack for remote-work trust and work-reference scenarios.
-
-Pilot Access Engine: scoped pilot access path for authorized hosted access. Scoped key generation is not included in this public repo.
-
-DIDX: company, legal, and registry anchor for the Passpod ecosystem.
+Archived terminology from the earlier TASK-era architecture is listed in
+[TERMINOLOGY.md#archived-legacy-terminology](TERMINOLOGY.md#archived-legacy-terminology).
+Those terms are outside the active Passpod v0.1 architecture.

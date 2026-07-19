@@ -8,7 +8,10 @@ This material is not canonical Passpod v0.1. Trust Action Receipts are not the p
 
 ## Historical Context
 
-The archived schema, examples, specification, roadmap, and launch-readiness documents come from the earlier TASK receipt family. They describe historical Trust Action Receipt concepts, demo receipt examples, receipt-era tooling inputs, and TASK-era launch planning.
+The archived schema, examples, specification, roadmap, launch-readiness
+documents, support documents, and utilities come from the earlier TASK receipt
+family. They describe historical Trust Action Receipt concepts, demo receipt
+examples, receipt-era tooling inputs, and TASK-era launch planning.
 
 Passpod v0.1 is defined by the Standard, Handshake Protocol, State Model, Message Model, Profile model, Conformance model, canonical schemas, canonical fixtures, semantic validator, SDK core, and CLI.
 
@@ -17,10 +20,15 @@ Passpod v0.1 is defined by the Standard, Handshake Protocol, State Model, Messag
 - [docs/SPEC.md](docs/SPEC.md)
 - [docs/LAUNCH_READINESS.md](docs/LAUNCH_READINESS.md)
 - [docs/ROADMAP.md](docs/ROADMAP.md)
+- [docs/production-checklist.md](docs/production-checklist.md)
+- [docs/receipt-lifecycle.md](docs/receipt-lifecycle.md)
+- [docs/standardization-roadmap.md](docs/standardization-roadmap.md)
 - [schemas/trust-action-receipt.schema.json](schemas/trust-action-receipt.schema.json)
 - [examples/remote-worker.receipt.json](examples/remote-worker.receipt.json)
 - [examples/refund-review.receipt.json](examples/refund-review.receipt.json)
 - [examples/agent-freeze.receipt.json](examples/agent-freeze.receipt.json)
+- [tools/validate-receipts.py](tools/validate-receipts.py)
+- [tools/pilot-readiness.py](tools/pilot-readiness.py)
 - [openapi/passpod-task.public.yaml](openapi/passpod-task.public.yaml)
 - [openapi/README.md](openapi/README.md)
 - [worker-reference/README.md](worker-reference/README.md)
@@ -57,19 +65,29 @@ The archived OpenAPI document describes the previous receipt-oriented HTTP servi
 
 Future HTTP binding work must be designed separately from the core protocol. The archival decision is documented in [../../docs/OPENAPI_TRANSPORT_MATERIAL_DECISION.md](../../docs/OPENAPI_TRANSPORT_MATERIAL_DECISION.md).
 
-The archived specification, roadmap, and launch-readiness documents describe the previous TASK-era specification and launch model. They are retained for provenance, decision history, and migration analysis. They are not current normative, roadmap, release, or launch-readiness material for Passpod v0.1.
+The archived specification, roadmap, launch-readiness, production-checklist,
+receipt-lifecycle, and standardization-roadmap documents describe the previous
+TASK-era specification, lifecycle, readiness, and launch model. They are
+retained for provenance, decision history, and migration analysis. They are not
+current normative, roadmap, release, lifecycle, production-readiness, or
+launch-readiness material for Passpod v0.1.
+
+The archived utilities operate only on archived receipt-era examples and schema
+material. They are retained as historical support tools and are not part of the
+active validation, SDK, CLI, CI, or repository-gate boundary.
 
 ## Legacy Consumers
 
 The following legacy consumers may still mention or load archived receipt-era or TASK-era material:
 
-- `tools/validate-receipts.py`
-- `tools/pilot-readiness.py`
-- `validator/README.md`
-- `examples/README.md`
+- `archive/legacy-task/tools/validate-receipts.py`
+- `archive/legacy-task/tools/pilot-readiness.py`
 - `archive/legacy-task/docs/SPEC.md`
 - `archive/legacy-task/docs/LAUNCH_READINESS.md`
 - `archive/legacy-task/docs/ROADMAP.md`
+- `archive/legacy-task/docs/production-checklist.md`
+- `archive/legacy-task/docs/receipt-lifecycle.md`
+- `archive/legacy-task/docs/standardization-roadmap.md`
 - `archive/legacy-task/openapi/passpod-task.public.yaml`
 - `archive/legacy-task/openapi/README.md`
 - `archive/legacy-task/worker-reference/README.md`
@@ -83,3 +101,8 @@ The receipt schema and examples in this directory were moved from the repository
 The OpenAPI and worker-reference material in this directory was moved from `openapi/` and `worker-reference/` using `git mv` to preserve the history of the legacy transport family.
 
 The specification, launch-readiness, and roadmap documents in `archive/legacy-task/docs/` were moved from the repository root using `git mv` to preserve the history of the legacy document family.
+
+The receipt lifecycle, production checklist, standardization roadmap, receipt
+validator utility, and pilot-readiness utility were moved from active support
+locations using `git mv` to preserve provenance while removing receipt-era
+semantics from the active repository surface.

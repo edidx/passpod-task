@@ -1,18 +1,45 @@
-# CLI
+# Passpod CLI
 
-No standalone CLI is shipped in this public v0.1 draft.
+The current CLI is a thin local interface over the SDK and semantic validator.
+It is transport-neutral and does not define production behavior.
 
-For now, use the Python validator from the repository root:
+## Commands
+
+Validate an artifact:
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 tools/validate-receipts.py
+python3 -m passpod.cli validate <path>
 ```
 
-Future CLI work should stay limited to public schema validation and local
-developer ergonomics unless a separate production design is approved.
+Inspect a bounded artifact summary:
 
-The CLI must not implement production signing, issuer internals, scoped key
-generation, Passpod Hub internals, customer workflows, or private commercial
-logic. Production-valid receipts require authorized issuer access through
-Passpod Hub and the Pilot Access Engine.
+```bash
+python3 -m passpod.cli inspect <path>
+```
+
+Both commands support machine-readable output:
+
+```bash
+python3 -m passpod.cli validate <path> --json
+python3 -m passpod.cli inspect <path> --json
+```
+
+## Exit Codes
+
+- `0`: command succeeded.
+- `1`: the artifact was recognized but invalid.
+- `2`: usage, file, parsing, root-shape, or artifact-detection failure.
+
+## Boundary
+
+The CLI validates and inspects current Passpod messages, handshakes, and
+profiles. It does not define the Standard, Protocol, schemas, validator
+semantics, production transport, persistence, signatures, cryptography,
+identity verification, authorization, hosted infrastructure, or Profile
+implementations.
+
+## References
+
+- [../docs/QUICKSTART.md](../docs/QUICKSTART.md)
+- [../passpod/cli.py](../passpod/cli.py)
+- [../tests/test_cli.py](../tests/test_cli.py)
