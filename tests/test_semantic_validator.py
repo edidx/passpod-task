@@ -78,6 +78,15 @@ class DirectSemanticRuleTests(unittest.TestCase):
         self.assertFalse(result["valid"])
         self.assertIn(code, error_codes(result))
 
+    def test_empty_or_missing_messages(self):
+        for handshake in (
+            {"handshakeIdentity": "hs-direct-001", "messages": []},
+            {"handshakeIdentity": "hs-direct-001"},
+        ):
+            with self.subTest(handshake=handshake):
+                result = semantic_validator.validateHandshake(handshake)
+                self.assert_has_code(result, semantic_validator.SCHEMA_INVALID)
+
     def test_duplicate_message_identity(self):
         result = semantic_validator.validateHandshake(
             self.handshake(
@@ -218,4 +227,3 @@ class DirectSemanticRuleTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
