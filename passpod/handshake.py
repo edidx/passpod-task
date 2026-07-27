@@ -51,8 +51,7 @@ class Handshake:
 
         object.__setattr__(self, "_data", data)
         self._set_history()
-        if self._data.get("messages"):
-            self.validate()
+        self.validate()
 
     def __repr__(self):
         return (
@@ -68,8 +67,7 @@ class Handshake:
         instance = cls.__new__(cls)
         object.__setattr__(instance, "_data", deepcopy(dict(mapping)))
         instance._set_history()
-        if instance._data.get("messages"):
-            instance.validate()
+        instance.validate()
         return instance
 
     def _set_history(self):
@@ -134,9 +132,6 @@ class Handshake:
         return deepcopy(self._data)
 
     def validate(self):
-        if not self._data.get("messages"):
-            return {"valid": True, "errors": []}
-
         result = validateHandshake(self.to_mapping())
         if not result.get("valid"):
             raise PasspodValidationError("validateHandshake", result.get("errors", []))

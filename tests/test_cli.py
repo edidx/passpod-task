@@ -103,6 +103,42 @@ class ValidateCommandTests(unittest.TestCase):
         self.assertIn("PARENT_REQUIRED", [error["code"] for error in payload["errors"]])
         assert_no_traceback(self, result)
 
+    def test_validate_rejects_empty_handshake(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_json(
+                directory,
+                "empty-handshake.json",
+                {"handshakeIdentity": "hs-empty-001", "messages": []},
+            )
+
+            result = run_cli("validate", str(path), "--json")
+
+            payload = json.loads(result.stderr)
+            self.assertEqual(1, result.returncode)
+            self.assertEqual("", result.stdout)
+            self.assertFalse(payload["valid"])
+            self.assertEqual("handshake", payload["artifact_type"])
+            self.assertIn("SCHEMA_INVALID", [error["code"] for error in payload["errors"]])
+            assert_no_traceback(self, result)
+
+    def test_validate_rejects_missing_messages(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_json(
+                directory,
+                "missing-messages.json",
+                {"handshakeIdentity": "hs-missing-001"},
+            )
+
+            result = run_cli("validate", str(path), "--json")
+
+            payload = json.loads(result.stderr)
+            self.assertEqual(2, result.returncode)
+            self.assertEqual("", result.stdout)
+            self.assertFalse(payload["valid"])
+            self.assertIsNone(payload["artifact_type"])
+            self.assertEqual("ARTIFACT_TYPE_UNKNOWN", payload["errors"][0]["code"])
+            assert_no_traceback(self, result)
+
 
 class InputFailureTests(unittest.TestCase):
     def test_detection_and_input_failures_are_exit_code_2(self):

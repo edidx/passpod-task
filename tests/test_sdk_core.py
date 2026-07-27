@@ -96,13 +96,20 @@ class HandshakeTests(unittest.TestCase):
             data["parentReference"] = parent
         return Message.from_mapping(data)
 
-    def test_creation_with_handshake_identity(self):
-        handshake = Handshake("hs-1")
+    def test_empty_or_missing_messages_are_rejected(self):
+        cases = (
+            lambda: Handshake("hs-1"),
+            lambda: Handshake.from_mapping({"handshakeIdentity": "hs-1", "messages": []}),
+            lambda: Handshake.from_mapping({"handshakeIdentity": "hs-1"}),
+        )
 
-        self.assertEqual("hs-1", handshake.handshake_identity)
-        self.assertEqual("not_started", handshake.lifecycle)
-        self.assertFalse(handshake.is_closed)
-        self.assertEqual(0, len(handshake.history))
+        for construct in cases:
+            with self.subTest(construct=construct):
+                with self.assertRaises(PasspodValidationError) as raised:
+                    construct()
+
+                self.assertEqual("validateHandshake", raised.exception.operation)
+                self.assertIn("SCHEMA_INVALID", error_codes(raised.exception))
 
     def test_creation_from_minimal_valid_propose(self):
         handshake = Handshake("hs-1", messages=[self.msg("msg-1", "PROPOSE")])

@@ -97,11 +97,6 @@ class ErgonomicsTests(unittest.TestCase):
         self.assertNotIn("largePayload", repr(message))
 
     def test_handshake_read_only_conveniences(self):
-        empty = Handshake("hs-empty-001")
-        self.assertEqual(0, empty.message_count)
-        self.assertIsNone(empty.last_message)
-        self.assertIsNone(empty.get_message("missing"))
-
         handshake = Handshake.from_mapping(load_json(ROOT / "examples" / "valid" / "complete-handshake.json"))
         last = handshake.last_message
 
