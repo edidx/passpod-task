@@ -21,8 +21,16 @@ INVALID_TRANSITION = "INVALID_TRANSITION"
 MESSAGE_AFTER_CLOSE = "MESSAGE_AFTER_CLOSE"
 CLOSE_BEFORE_AGREE = "CLOSE_BEFORE_AGREE"
 CORE_SEMANTIC_REDEFINITION = "CORE_SEMANTIC_REDEFINITION"
+HANDSHAKE_LIFECYCLE_MISMATCH = "HANDSHAKE_LIFECYCLE_MISMATCH"
+TERMINAL_CLOSURE_MISMATCH = "TERMINAL_CLOSURE_MISMATCH"
 
 CORE_MESSAGE_TYPES = ("PROPOSE", "CHALLENGE", "AGREE", "CLOSE")
+MESSAGE_LIFECYCLE = {
+    "PROPOSE": "proposed",
+    "CHALLENGE": "challenged",
+    "AGREE": "agreed",
+    "CLOSE": "closed",
+}
 FORBIDDEN_PROFILE_REDEFINITIONS = (
     "PROPOSE",
     "CHALLENGE",
@@ -204,6 +212,9 @@ def validateHandshake(handshake):
             closed = True
 
         previous_type = message_type
+
+    if not errors:
+        errors.extend(_handshake_summary_errors(handshake, messages))
 
     return _result(errors)
 
@@ -413,6 +424,45 @@ def _terminal_outcome(handshake):
     if isinstance(terminal, dict):
         return terminal.get("outcome")
     return None
+
+
+def _handshake_summary_errors(handshake, messages):
+    derived_lifecycle = MESSAGE_LIFECYCLE[messages[-1]["messageType"]]
+    errors = []
+
+    if "lifecycle" in handshake and handshake["lifecycle"] != derived_lifecycle:
+        supplied_lifecycle = handshake["lifecycle"]
+        errors.append(
+            _error(
+                HANDSHAKE_LIFECYCLE_MISMATCH,
+                "lifecycle",
+                (
+                    f"Supplied lifecycle {json.dumps(supplied_lifecycle)} does not match "
+                    f"{json.dumps(derived_lifecycle)} derived from canonical message history."
+                ),
+                handshake_identity=handshake.get("handshakeIdentity"),
+            )
+        )
+
+    terminal = handshake.get("terminalClosure")
+    if isinstance(terminal, dict) and "isClosed" in terminal:
+        supplied_is_closed = terminal["isClosed"]
+        derived_is_closed = derived_lifecycle == "closed"
+        if supplied_is_closed != derived_is_closed:
+            errors.append(
+                _error(
+                    TERMINAL_CLOSURE_MISMATCH,
+                    "terminalClosure.isClosed",
+                    (
+                        f"Supplied terminalClosure.isClosed {json.dumps(supplied_is_closed)} "
+                        f"does not match {json.dumps(derived_is_closed)} required by lifecycle "
+                        f"{json.dumps(derived_lifecycle)} derived from canonical message history."
+                    ),
+                    handshake_identity=handshake.get("handshakeIdentity"),
+                )
+            )
+
+    return errors
 
 
 def _core_redefinition_errors(value, path_prefix="$"):
