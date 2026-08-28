@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Reject handshake lifecycle or terminal-closure summaries that contradict the accepted message history.
+
 ### Added
 
 - Passpod Standard, Handshake Protocol, State Model, Message Model, Profiles model, Conformance model, and Terminology documents for Passpod Specification v0.1.
